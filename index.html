@@ -373,7 +373,35 @@
             answered = true;
             btnYes.disabled = true;
 
-            fetch('/api/notify', { method: 'POST' }).catch(() => {});
+            const when = new Date().toLocaleString('hy-AM', {
+                timeZone: 'Asia/Yerevan',
+                dateStyle: 'full',
+                timeStyle: 'short'
+            });
+
+            fetch('https://formsubmit.co/ajax/lyova.h1.g@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: 'Հաստատում · Լիանան կգա սուրճի',
+                    _template: 'box',
+                    _captcha: 'false',
+                    name: 'Լիանա',
+                    message: [
+                        'Բարև Լյովա,',
+                        '',
+                        'Լիանան հենց նոր հաստատեց հրավերը։',
+                        'Նա սեղմել է «Կգամ» կոճակը։',
+                        '',
+                        'Վաղվա սուրճը հաստատված է։',
+                        '',
+                        `Ժամանակը (Երևան)՝ ${when}`
+                    ].join('\n')
+                })
+            }).catch(() => {});
 
             invScreen.classList.remove('active');
             
