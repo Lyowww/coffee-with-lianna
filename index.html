@@ -367,7 +367,14 @@
         btnNo.addEventListener('touchstart', moveButton, { passive: false });
 
         // Handle Yes button click
+        let answered = false;
         btnYes.addEventListener('click', () => {
+            if (answered) return;
+            answered = true;
+            btnYes.disabled = true;
+
+            fetch('/api/notify', { method: 'POST' }).catch(() => {});
+
             invScreen.classList.remove('active');
             
             // Hide the No button immediately if it's flying around
